@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Events</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        //   ALERT MESSAGE (16)
+        $("button:eq(0)").click(function () {
+          alert("Button is clicked!");
+        });
+        // .BIND METHOD (17)
+        $("button:eq(1)").bind("click", function () {
+          alert("Button is clicked usind .bind() method!");
+        });
+        // .ON METHOD (18)
+        $("button:eq(2)").on("click", function () {
+          window.alert("Button is clicked usind .on() method!");
+        });
+        // SINGLE HANDLER FOR BOTH BUTTONS (19)
+        $(".doubleTest").on("click", function () {
+          let textBtn = $(this).text();
+          alert(`${textBtn} button is clicked`);
+        });
+        // DIV - HANDLING MULTIPLE EVENTS (20 - 21)
+        $("div:first-of-type")
+          .css("width", "400px")
+          .css("height", "400px")
+          .css("background-color", "silver");
+        $("div:first-of-type").on({
+          mouseenter: function () {
+            $("span").text("The Mouse Entered the Div!");
+            alert("The Mouse Entered the Div!");
+          },
+          mouseleave: function () {
+            $("span").text("The Mouse Left the Div!");
+            alert("The Mouse Left the Div!");
+          },
+          click: function () {
+            $("span").text("You Clicked the Div!");
+            alert("You Clicked the Div!");
+          },
+        });
+
+        // A LINK
+        $("a").click(function (e) {
+          e.preventDefault();
+          $(this).css("color", "red");
+          alert('"' + e.target.nodeName + '" tag triggered the event');
+        });
+
+        // .RESIZE METHOD
+        $(window).resize(function () {
+          $("#resizeDiv").text($(window).width());
+        });
+
+        // INPUT FOCUS
+        $("input:eq(0)").focus(function () {
+          $(this).css("background-color", "gray");
+        });
+        $("input:eq(0)").blur(function () {
+          $(this).css("background-color", "white");
+        });
+
+        // FORM
+        $("#form").submit(function (e) {
+          e.preventDefault();
+          let name = $("#name").val().trim();
+          let email = $("#email").val().trim();
+          if (name == "") {
+            $("#name").css("border", "2px solid red");
+            alert("Name field is required!");
+          } else if (email == "") {
+            $("#email").css("border", "2px solid red");
+            alert("Email field is required!");
+          } else {
+            $("#name").css("border", "2px solid green");
+            $("#email").css("border", "2px solid green");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    16. <button>Click</button> <br /><br />
+    17. <button>Click Bind</button><br /><br />
+    18. <button>Click On</button><br /><br />
+
+    <!-- SINGLE HANDLER FOR BOTH BUTTONS -->
+    19. <br />
+    <button class="doubleTest">First</button>
+    <button class="doubleTest">Second</button> <br /><br />
+
+    <!-- DIV - HANDLING MULTIPLE EVENTS (20 - 21) -->
+    20. <br />
+    <div></div>
+
+    21. <br />
+    <span></span><br /><br />
+
+    <!-- A LINK -->
+    22. <br />
+    <a href="http://www.modulemedia.com">Link to modulemedia</a> <br /><br />
+
+    <!-- .RESIZE METHOD -->
+    23. <br />
+    <div id="resizeDiv"></div>
+
+    <!-- INPUT FOCUS -->
+    24. <br />
+    <input type="text" /><br /><br />
+
+    <!-- FORM -->
+    25.
+    <form action="" id="form">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" />
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" />
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+  </body>
+</html>
